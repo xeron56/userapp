@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "124348892387",
+    "project_id": "foodstick-6da1d",
+    "storage_bucket": "foodstick-6da1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124348892387:android:08b7a7afbe2925f93c71d6",
+        "android_client_info": {
+          "package_name": "com.appstick.foodstick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124348892387-ggq6j9jp5h9k5kbm16qjmaojrkma3s8g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4hLay4hOpN2ma9xxFr7dGvcMgtLPi3Jw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124348892387-ggq6j9jp5h9k5kbm16qjmaojrkma3s8g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
