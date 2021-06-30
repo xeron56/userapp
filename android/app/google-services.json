@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "124348892387-7u47k00nksjn66ih6kal0vb51d6jbktn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appstick.foodstick",
+            "certificate_hash": "c459b25fc589d7a0727aaa125d5e4580ce3f0d8c"
+          }
+        },
+        {
           "client_id": "124348892387-ggq6j9jp5h9k5kbm16qjmaojrkma3s8g.apps.googleusercontent.com",
           "client_type": 3
         }

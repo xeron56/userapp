@@ -7,8 +7,11 @@ import 'package:flutter_restaurant/provider/cart_provider.dart';
 import 'package:flutter_restaurant/provider/splash_provider.dart';
 import 'package:flutter_restaurant/provider/wishlist_provider.dart';
 import 'package:flutter_restaurant/utill/images.dart';
+import 'package:flutter_restaurant/view/screens/dashboard/dash_board.dart';
+import 'package:flutter_restaurant/view/screens/dashboard/dash_screen.dart';
 import 'package:flutter_restaurant/view/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter_restaurant/view/screens/language/choose_language_screen.dart';
+
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -66,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
             await Provider.of<WishListProvider>(context, listen: false).initWishList(context);
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen()));
           } else {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => ChooseLanguageScreen()));
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
           }
         });
       }
@@ -77,14 +80,15 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      backgroundColor: Theme.of(context).primaryColor,
+      // backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Color(0xffff4200),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(Images.efood_bike, height: 165),
+            Image.asset(Images.foodstick_logo, height: 165),
             SizedBox(height: 45),
-            Image.asset(Images.efood, height: 33),
+            // Image.asset(Images.efood, height: 33),
           ],
         ),
       ),

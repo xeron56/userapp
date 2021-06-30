@@ -60,7 +60,7 @@
   "login": "Login",
   "signup": "SignUp",
   "email": "Email",
-  "demo_gmail": "demo@gmail.com",
+  "demo_gmail": "demo.user@gmail.com",
   "password_did_not_match": "Password does not matched",
   "mobile_number": "Mobile Number",
   "number_hint": "+880 1234567890",

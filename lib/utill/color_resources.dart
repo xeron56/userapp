@@ -24,7 +24,7 @@ class ColorResources {
   static Color getGreyBunkerColor(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFE4E8EC) : Color(0xFF25282B);
   }
-  static const Color COLOR_PRIMARY = Color(0xFFFC6A57);
+  static const Color COLOR_PRIMARY = Color(0xffff4200);
   static const Color COLOR_GREY = Color(0xFFA0A4A8);
   static const Color COLOR_BLACK = Color(0xFF000000);
   static const Color COLOR_NERO = Color(0xFF1F1F1F);

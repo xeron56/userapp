@@ -58,6 +58,7 @@ class MenuScreen extends StatelessWidget {
                     style: rubikRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE, color: ColorResources.COLOR_WHITE),
                   ) : Container(height: 15, width: 150, color: Colors.white) : Text(
                     getTranslated('guest', context),
+                    
                     style: rubikRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE, color: ColorResources.COLOR_WHITE),
                   ),
                   SizedBox(height: 10),

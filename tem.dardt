@@ -1,0 +1,180 @@
+Container(
+    width: 375,
+    height: 78,
+    padding: const EdgeInsets.only(left: 11, right: 12, ),
+    child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:[
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15, ),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children:[
+                        Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: FlutterLogo(size: 24),
+                        ),
+                        SizedBox(height: 3),
+                        SizedBox(
+                            width: 70,
+                            child: Text(
+                                "Explore",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(0xff202020),
+                                    fontSize: 10,
+                                    fontFamily: "Poppins",
+                                    fontWeight: FontWeight.w300,
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+            ),
+            SizedBox(width: 0.50),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15, ),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children:[
+                        Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: FlutterLogo(size: 24),
+                        ),
+                        SizedBox(height: 3),
+                        SizedBox(
+                            width: 70,
+                            child: Text(
+                                "Orders",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(0xff202020),
+                                    fontSize: 10,
+                                    fontFamily: "Poppins",
+                                    fontWeight: FontWeight.w300,
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+            ),
+            SizedBox(width: 0.50),
+            Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Color(0xfff8f8f8),
+                ),
+                padding: const EdgeInsets.all(6),
+                child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:[
+                        Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                color: Color(0xffff4200),
+                            ),
+                            padding: const EdgeInsets.all(17),
+                            child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children:[
+                                    Container(
+                                        width: 24,
+                                        height: 24,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: FlutterLogo(size: 24),
+                                    ),
+                                ],
+                            ),
+                        ),
+                    ],
+                ),
+            ),
+            SizedBox(width: 0.50),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15, ),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children:[
+                        Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: FlutterLogo(size: 24),
+                        ),
+                        SizedBox(height: 3),
+                        SizedBox(
+                            width: 70,
+                            child: Text(
+                                "Bag",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(0xff202020),
+                                    fontSize: 10,
+                                    fontFamily: "Poppins",
+                                    fontWeight: FontWeight.w300,
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+            ),
+            SizedBox(width: 0.50),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15, ),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children:[
+                        Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: FlutterLogo(size: 24),
+                        ),
+                        SizedBox(height: 3),
+                        SizedBox(
+                            width: 70,
+                            child: Text(
+                                "Profile",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(0xff202020),
+                                    fontSize: 10,
+                                    fontFamily: "Poppins",
+                                    fontWeight: FontWeight.w300,
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+            ),
+        ],
+    ),
+)

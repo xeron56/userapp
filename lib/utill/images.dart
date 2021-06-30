@@ -35,6 +35,10 @@ class Images {
   // for Icon
   static const String efood = 'assets/icon/efood.png';
   static const String efood_bike = 'assets/icon/efood_bike.png';
+
+  static const String foodstick_logo ='assets/icon/foodstick_logo.png';
+  static const String foodstick_moto = 'assets/icon/food_stick_moto.png';
+
   
   static const String marker = 'assets/icon/marker.png';
   static const String my_location = 'assets/icon/my_location.png';

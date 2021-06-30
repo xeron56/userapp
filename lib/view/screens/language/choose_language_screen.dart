@@ -10,6 +10,7 @@ import 'package:flutter_restaurant/utill/images.dart';
 import 'package:flutter_restaurant/utill/strings.dart';
 import 'package:flutter_restaurant/view/base/custom_button.dart';
 import 'package:flutter_restaurant/view/base/custom_snackbar.dart';
+import 'package:flutter_restaurant/view/screens/dashboard/dash_screen.dart';
 import 'package:flutter_restaurant/view/screens/language/widget/search_widget.dart';
 import 'package:flutter_restaurant/view/screens/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +65,7 @@ class ChooseLanguageScreen extends StatelessWidget {
                             if (fromMenu) {
                               Navigator.pop(context);
                             } else {
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => OnBoardingScreen()));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => DashScreen()));
                             }
                           }else {
                             showCustomSnackBar(getTranslated('select_a_language', context), context);
