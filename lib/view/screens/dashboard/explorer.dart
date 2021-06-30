@@ -1,5 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_html/html_parser.dart';
+import 'package:flutter_restaurant/view/screens/filter/filter_button.dart';
+import 'package:flutter_restaurant/view/screens/order/order_screen.dart';
 
 class Explorer extends StatelessWidget {
   const Explorer({Key key}) : super(key: key);
@@ -8,7 +10,6 @@ class Explorer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -161,26 +162,36 @@ class Explorer extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Container(
-                      child:
+                    //added onclick button event for filter
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FilterButton()),
+                        );
+                      },
+                      child: Container(
+                        child:
 
-                          /// Detected as Icon
-                          /// FIXME: Check your design. this is an icon of node "Icons". we couldn't any matching flutter native icon, so we uploaded the asset to the cloud, load from it.
-                          Image.network(
-                        "https://resource-hosting.s3.us-west-1.amazonaws.com/M9CjeXWi-[object Object]",
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.cover,
-                      ),
-                      padding: EdgeInsets.all(
-                        13,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(
-                          0xffff4200,
+                            /// Detected as Icon
+                            /// FIXME: Check your design. this is an icon of node "Icons". we couldn't any matching flutter native icon, so we uploaded the asset to the cloud, load from it.
+                            Image.network(
+                          "https://resource-hosting.s3.us-west-1.amazonaws.com/M9CjeXWi-[object Object]",
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
                         ),
-                        borderRadius: BorderRadius.circular(
-                          5,
+                        padding: EdgeInsets.all(
+                          13,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(
+                            0xffff4200,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            5,
+                          ),
                         ),
                       ),
                     ),
@@ -2172,6 +2183,5 @@ class Explorer extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
