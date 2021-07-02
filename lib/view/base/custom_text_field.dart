@@ -54,7 +54,7 @@ class CustomTextField extends StatefulWidget {
       this.suffixIconUrl,
       this.prefixIconUrl,
       this.isSearch = false,
-      this.languageProvider});
+      this.languageProvider, Container child});
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();

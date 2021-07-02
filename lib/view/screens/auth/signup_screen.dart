@@ -83,6 +83,8 @@ class SignUpScreen extends StatelessWidget {
                         }else {
                           authProvider.checkEmail(_email).then((value) async {
                             if (value.isSuccess) {
+
+                              
                               authProvider.updateEmail(_email);
                               if (value.message == 'active') {
                                 Navigator.of(context).push(

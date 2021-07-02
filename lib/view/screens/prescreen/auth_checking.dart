@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_restaurant/localization/language_constrants.dart';
+import 'package:flutter_restaurant/view/base/custom_text_field.dart';
 import 'package:flutter_restaurant/view/screens/prescreen/auth_signup_otp.dart';
 
 class AuthChecking extends StatefulWidget {
@@ -11,12 +13,13 @@ class AuthChecking extends StatefulWidget {
 class _AuthCheckingState extends State<AuthChecking> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    TextEditingController _emailController = TextEditingController();
+    return Scaffold(
       body: Container(
         child: Stack(
           children: [
             /// wrap:positioned of "Frame 737"
-            
+
             Positioned(
               left: 0,
               top: 30,
@@ -155,16 +158,13 @@ class _AuthCheckingState extends State<AuthChecking> {
                                 Container(
                                   child: Container(
                                     child: SizedBox(
-                                      child: Text(
-                                        "Email or phone number",
-                                        style: TextStyle(
-                                          color: Color(
-                                            0xff646464,
-                                          ),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Poppins",
-                                        ),
+                                      child: CustomTextField(
+                                        hintText: getTranslated(
+                                            'user_check', context),
+                                        isShowBorder: true,
+                                        inputAction: TextInputAction.done,
+                                        inputType: TextInputType.emailAddress,
+                                        controller: _emailController,
                                       ),
                                       width: 303,
                                     ),
@@ -183,31 +183,32 @@ class _AuthCheckingState extends State<AuthChecking> {
                             ),
                           ),
                           SizedBox(
-                            height: 200,
+                            height: 170,
                           ),
                           // ignore: deprecated_member_use
                           FlatButton.icon(
                             onPressed: () {
                               // print("Button clicked!");
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => AuthSignupOtp()));
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          AuthSignupOtp()));
                             },
                             label: Text(
                               "Continue",
                             ),
-              
                             color: Color(
                               0xffff4200,
                             ),
                             textColor: Colors.white,
                             minWidth: 335,
                             height: 51,
-                            
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                 30,
                               ),
                             ),
-                                          icon:
+                            icon:
 
                                 /// Detected as Icon
                                 /// FIXME: Check your design. this is an icon of node "Icons". we couldn't any matching flutter native icon, so we uploaded the asset to the cloud, load from it.
