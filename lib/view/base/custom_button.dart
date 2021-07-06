@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
       minimumSize: Size(MediaQuery.of(context).size.width, 50),
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(30),
       ),
     );
 

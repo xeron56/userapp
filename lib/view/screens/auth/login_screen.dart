@@ -59,12 +59,12 @@ class _LoginScreenState extends State<LoginScreen> {
             child: ListView(
               physics: BouncingScrollPhysics(),
               children: [
-                SizedBox(height: 48),
+                SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Image.asset(
                     Images.foodstick_moto,
-                    height: MediaQuery.of(context).size.height / 4.5,
+                    height: MediaQuery.of(context).size.height / 4,
                     fit: BoxFit.scaleDown,
                     matchTextDirection: true,
                   ),
@@ -222,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
 
                 // for login button
-                SizedBox(height: 80),
+                SizedBox(height: 60),
                 !authProvider.isLoading
                     ? CustomButton(
                         btnTxt: getTranslated('login', context),

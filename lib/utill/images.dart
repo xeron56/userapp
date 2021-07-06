@@ -39,6 +39,11 @@ class Images {
   static const String foodstick_logo ='assets/icon/foodstick_logo.png';
   static const String foodstick_moto = 'assets/icon/food_stick_moto.png';
 
+  static const String explore_menu = 'assets/icon/explore_menu.png';
+  static const String bag_menu = 'assets/icon/bag_menu.png'; 
+  static const String order_menu ='assets/icon/order_menu.png';
+   static const String profile_menu ='assets/icon/profile_menu.png';
+
   
   static const String marker = 'assets/icon/marker.png';
   static const String my_location = 'assets/icon/my_location.png';

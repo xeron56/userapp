@@ -7,10 +7,12 @@ import 'package:flutter_restaurant/provider/cart_provider.dart';
 import 'package:flutter_restaurant/provider/splash_provider.dart';
 import 'package:flutter_restaurant/provider/wishlist_provider.dart';
 import 'package:flutter_restaurant/utill/images.dart';
+import 'package:flutter_restaurant/view/screens/auth/signup_screen.dart';
 import 'package:flutter_restaurant/view/screens/dashboard/dash_board.dart';
 import 'package:flutter_restaurant/view/screens/dashboard/dash_screen.dart';
 import 'package:flutter_restaurant/view/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter_restaurant/view/screens/language/choose_language_screen.dart';
+import 'package:flutter_restaurant/view/screens/order/order_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -64,12 +66,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Provider.of<SplashProvider>(context, listen: false).initConfig(_globalKey).then((bool isSuccess) {
       if (isSuccess) {
         Timer(Duration(seconds: 1), () async {
+          //insert first if user is logedin
           if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
             Provider.of<AuthProvider>(context, listen: false).updateToken();
             await Provider.of<WishListProvider>(context, listen: false).initWishList(context);
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen()));
           } else {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen()));
           }
         });
       }

@@ -17,7 +17,8 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
-    Provider.of<AuthProvider>(context, listen: false).clearVerificationMessage();
+    Provider.of<AuthProvider>(context, listen: false)
+        .clearVerificationMessage();
 
     return Scaffold(
       body: Padding(
@@ -28,23 +29,59 @@ class SignUpScreen extends StatelessWidget {
             children: [
               SizedBox(height: 30),
               Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Image.asset(Images.efood_bike_with_person, matchTextDirection: true),
+                padding: const EdgeInsets.all(25.0),
+                child: Image.asset(Images.foodstick_moto,
+                    matchTextDirection: true),
               ),
               SizedBox(height: 20),
-              Center(
-                  child: Text(
-                getTranslated('signup', context),
-                style: Theme.of(context).textTheme.headline3.copyWith(fontSize: 24, color: ColorResources.getGreyBunkerColor(context)),
-              )),
-              SizedBox(height: 35),
-              Text(
-                getTranslated('email', context),
-                style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
+              // Center(
+              //     child: Text(
+              //   getTranslated('signup', context),
+              //   style: Theme.of(context).textTheme.headline3.copyWith(fontSize: 24, color: ColorResources.getGreyBunkerColor(context)),
+              // )),
+              // SizedBox(height: 35),
+              // Text(
+              //   getTranslated('email', context),
+              //   style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
+              // ),
+              // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Hi, there!",
+                      style: TextStyle(
+                        color: Color(
+                          0xff646464,
+                        ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Poppins",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "Will check, if you have any account.",
+                      style: TextStyle(
+                        color: Color(
+                          0xff646464,
+                        ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+               SizedBox(height: 35),
               CustomTextField(
-                hintText: getTranslated('demo_gmail', context),
+                hintText: getTranslated('user_check', context),
                 isShowBorder: true,
                 inputAction: TextInputAction.done,
                 inputType: TextInputType.emailAddress,
@@ -55,7 +92,10 @@ class SignUpScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   authProvider.verificationMessage.length > 0
-                      ? CircleAvatar(backgroundColor: ColorResources.getPrimaryColor(context), radius: 5)
+                      ? CircleAvatar(
+                          backgroundColor:
+                              ColorResources.getPrimaryColor(context),
+                          radius: 5)
                       : SizedBox.shrink(),
                   SizedBox(width: 8),
                   Expanded(
@@ -70,28 +110,39 @@ class SignUpScreen extends StatelessWidget {
                 ],
               ),
               // for continue button
-              SizedBox(height: 12),
+              SizedBox(height: 130),
               !authProvider.isPhoneNumberVerificationButtonLoading
                   ? CustomButton(
                       btnTxt: getTranslated('continue', context),
                       onTap: () {
                         String _email = _emailController.text.trim();
                         if (_email.isEmpty) {
-                          showCustomSnackBar(getTranslated('enter_email_address', context), context);
-                        }else if (EmailChecker.isNotValid(_email)) {
-                          showCustomSnackBar(getTranslated('enter_valid_email', context), context);
-                        }else {
+                          showCustomSnackBar(
+                              getTranslated('enter_email_address', context),
+                              context);
+                        } else if (EmailChecker.isNotValid(_email)) {
+                          showCustomSnackBar(
+                              getTranslated('enter_valid_email', context),
+                              context);
+                        } else {
                           authProvider.checkEmail(_email).then((value) async {
+                            //if email not exist than >signup-account creation
                             if (value.isSuccess) {
-
-                              
                               authProvider.updateEmail(_email);
                               if (value.message == 'active') {
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (_) => VerificationScreen(emailAddress: _email, fromSignUp: true)));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => VerificationScreen(
+                                        emailAddress: _email,
+                                        fromSignUp: true)));
                               } else {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => CreateAccountScreen()));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => CreateAccountScreen()));
                               }
+                            }else{
+                              Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => LoginScreen()));
+
+
                             }
                           });
                         }
@@ -99,36 +150,37 @@ class SignUpScreen extends StatelessWidget {
                     )
                   : Center(
                       child: CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(ColorResources.COLOR_PRIMARY),
+                      valueColor: new AlwaysStoppedAnimation<Color>(
+                          ColorResources.COLOR_PRIMARY),
                     )),
 
               // for create an account
               SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginScreen()));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        getTranslated('already_have_account', context),
-                        style: Theme.of(context).textTheme.headline2.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL, color: ColorResources.getGreyColor(context)),
-                      ),
-                      SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                      Text(
-                        getTranslated('login', context),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3
-                            .copyWith(fontSize: Dimensions.FONT_SIZE_SMALL, color: ColorResources.getGreyBunkerColor(context)),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginScreen()));
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         Text(
+              //           getTranslated('already_have_account', context),
+              //           style: Theme.of(context).textTheme.headline2.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL, color: ColorResources.getGreyColor(context)),
+              //         ),
+              //         SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+              //         Text(
+              //           getTranslated('login', context),
+              //           style: Theme.of(context)
+              //               .textTheme
+              //               .headline3
+              //               .copyWith(fontSize: Dimensions.FONT_SIZE_SMALL, color: ColorResources.getGreyBunkerColor(context)),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

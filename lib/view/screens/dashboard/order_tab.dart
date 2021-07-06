@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_restaurant/view/screens/auth/signup_screen.dart';
 import 'package:flutter_restaurant/view/screens/prescreen/auth_checking.dart';
 import 'package:flutter_restaurant/view/screens/prescreen/auth_signup_otp.dart';
 import 'package:flutter_restaurant/view/screens/prescreen/email/auth_signup_email.dart';
@@ -99,7 +100,7 @@ class Ordertab extends StatelessWidget {
                           FlatButton(
                             onPressed: () {
                               // 
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => AuthChecking()));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => SignUpScreen()));
                             },
                             child: Text(
                               "Continue with Email or OTP",

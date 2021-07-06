@@ -5,6 +5,7 @@ import 'package:flutter_restaurant/provider/auth_provider.dart';
 import 'package:flutter_restaurant/provider/wishlist_provider.dart';
 import 'package:flutter_restaurant/utill/color_resources.dart';
 import 'package:flutter_restaurant/utill/dimensions.dart';
+import 'package:flutter_restaurant/utill/images.dart';
 import 'package:flutter_restaurant/view/base/custom_button.dart';
 import 'package:flutter_restaurant/view/base/custom_snackbar.dart';
 import 'package:flutter_restaurant/view/base/custom_text_field.dart';
@@ -17,12 +18,12 @@ class CreateAccountScreen extends StatelessWidget {
   final FocusNode _lastNameFocus = FocusNode();
   final FocusNode _numberFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
-  final FocusNode _confirmPasswordFocus = FocusNode();
+  // final FocusNode _confirmPasswordFocus = FocusNode();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _numberController = TextEditingController();
+  // final TextEditingController _numberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  // final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +34,55 @@ class CreateAccountScreen extends StatelessWidget {
           builder: (context, authProvider, child) => ListView(
             physics: BouncingScrollPhysics(),
             children: [
-              Center(
-                  child: Text(
-                getTranslated('create_account', context),
-                style: Theme.of(context).textTheme.headline3.copyWith(fontSize: 24, color: ColorResources.getGreyBunkerColor(context)),
-              )),
-              SizedBox(height: 20),
+               SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Image.asset(Images.foodstick_moto,
+                    matchTextDirection: true),
+              ),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Hi, there!",
+                      style: TextStyle(
+                        color: Color(
+                          0xff646464,
+                        ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Poppins",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "Will check, if you have any account.",
+                      style: TextStyle(
+                        color: Color(
+                          0xff646464,
+                        ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
 
               // for first name section
-              Text(
-                getTranslated('first_name', context),
-                style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
-              ),
-              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              // Text(
+              //   getTranslated('first_name', context),
+              //   style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
+              // ),
+              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
               CustomTextField(
-                hintText: 'John',
+                hintText: 'First name',
                 isShowBorder: true,
                 controller: _firstNameController,
                 focusNode: _firstNameFocus,
@@ -55,73 +90,74 @@ class CreateAccountScreen extends StatelessWidget {
                 inputType: TextInputType.name,
                 capitalization: TextCapitalization.words,
               ),
-              SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
               // for last name section
-              Text(
-                getTranslated('last_name', context),
-                style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
-              ),
+              // Text(
+              //   getTranslated('last_name', context),
+              //   style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
+              // ),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
               CustomTextField(
-                hintText: 'Doe',
+                hintText: 'Last name',
                 isShowBorder: true,
                 controller: _lastNameController,
                 focusNode: _lastNameFocus,
-                nextFocus: _numberFocus,
+                nextFocus: _passwordFocus,
                 inputType: TextInputType.name,
                 capitalization: TextCapitalization.words,
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
               // for email section
-              Text(
-                getTranslated('mobile_number', context),
-                style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
-              ),
-              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-              CustomTextField(
-                hintText: getTranslated('number_hint', context),
-                isShowBorder: true,
-                controller: _numberController,
-                focusNode: _numberFocus,
-                nextFocus: _passwordFocus,
-                inputType: TextInputType.phone,
-              ),
-              SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+              // Text(
+              //   getTranslated('mobile_number', context),
+              //   style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
+              // ),
+              // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              // CustomTextField(
+              //   hintText: getTranslated('number_hint', context),
+              //   isShowBorder: true,
+              //   controller: _numberController,
+              //   focusNode: _numberFocus,
+              //   nextFocus: _passwordFocus,
+              //   inputType: TextInputType.phone,
+              // ),
+              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
               // for password section
-              Text(
-                getTranslated('password', context),
-                style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
-              ),
-              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              // Text(
+              //   getTranslated('password', context),
+              //   style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
+              // ),
+              // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
               CustomTextField(
                 hintText: getTranslated('password_hint', context),
                 isShowBorder: true,
                 isPassword: true,
                 controller: _passwordController,
                 focusNode: _passwordFocus,
-                nextFocus: _confirmPasswordFocus,
+                // nextFocus: _confirmPasswordFocus,
                 isShowSuffixIcon: true,
+                inputAction: TextInputAction.done,
               ),
               SizedBox(height: 22),
 
               // for confirm password section
-              Text(
-                getTranslated('confirm_password', context),
-                style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
-              ),
-              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-              CustomTextField(
-                hintText: getTranslated('password_hint', context),
-                isShowBorder: true,
-                isPassword: true,
-                controller: _confirmPasswordController,
-                focusNode: _confirmPasswordFocus,
-                isShowSuffixIcon: true,
-                inputAction: TextInputAction.done,
-              ),
+              // Text(
+              //   getTranslated('confirm_password', context),
+              //   style: Theme.of(context).textTheme.headline2.copyWith(color: ColorResources.getHintColor(context)),
+              // ),
+              // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              // CustomTextField(
+              //   hintText: getTranslated('password_hint', context),
+              //   isShowBorder: true,
+              //   isPassword: true,
+              //   controller: _confirmPasswordController,
+              //   focusNode: _confirmPasswordFocus,
+              //   isShowSuffixIcon: true,
+              //   inputAction: TextInputAction.done,
+              // ),
 
               SizedBox(height: 22),
               Row(
@@ -151,30 +187,24 @@ class CreateAccountScreen extends StatelessWidget {
                       onTap: () {
                         String _firstName = _firstNameController.text.trim();
                         String _lastName = _lastNameController.text.trim();
-                        String _number = _numberController.text.trim();
+                        // String _number = _numberController.text.trim();
                         String _password = _passwordController.text.trim();
-                        String _confirmPassword = _confirmPasswordController.text.trim();
+                        // String _confirmPassword = _confirmPasswordController.text.trim();
                         if (_firstName.isEmpty) {
                           showCustomSnackBar(getTranslated('enter_first_name', context), context);
                         }else if (_lastName.isEmpty) {
                           showCustomSnackBar(getTranslated('enter_last_name', context), context);
-                        }else if (_number.isEmpty) {
-                          showCustomSnackBar(getTranslated('enter_phone_number', context), context);
                         }else if (_password.isEmpty) {
                           showCustomSnackBar(getTranslated('enter_password', context), context);
                         }else if (_password.length < 6) {
                           showCustomSnackBar(getTranslated('password_should_be', context), context);
-                        }else if (_confirmPassword.isEmpty) {
-                          showCustomSnackBar(getTranslated('enter_confirm_password', context), context);
-                        }else if(_password != _confirmPassword) {
-                          showCustomSnackBar(getTranslated('password_did_not_match', context), context);
                         }else {
                           SignUpModel signUpModel = SignUpModel(
                             fName: _firstName,
                             lName: _lastName,
                             email: authProvider.email,
                             password: _password,
-                            phone: _number,
+                            // phone: _number,
                           );
                           authProvider.registration(signUpModel).then((status) async {
                             if (status.isSuccess) {

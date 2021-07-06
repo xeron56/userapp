@@ -19,6 +19,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> with TickerProviderStateMixin {
   int _lastSelected = 0;
+  
   final List<Widget> _children =[
     Explorer(),
     Ordertab(),
@@ -52,7 +53,9 @@ class _DashBoardState extends State<DashBoard> with TickerProviderStateMixin {
       //     style: TextStyle(fontSize: 32.0),
       //   ),
       // ),
+      
       body: _children[_lastSelected],
+      
     
       bottomNavigationBar: FABBottomAppBar(
         // centerItemText: 'A',
