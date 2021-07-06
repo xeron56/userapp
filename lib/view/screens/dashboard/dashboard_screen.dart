@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_restaurant/helper/date_converter.dart';
 import 'package:flutter_restaurant/helper/network_info.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_restaurant/utill/color_resources.dart';
 import 'package:flutter_restaurant/utill/dimensions.dart';
 import 'package:flutter_restaurant/utill/images.dart';
 import 'package:flutter_restaurant/utill/styles.dart';
+import 'package:flutter_restaurant/view/screens/auth/firebase_auth.dart';
 import 'package:flutter_restaurant/view/screens/auth/signup_screen.dart';
+import 'package:flutter_restaurant/view/screens/auth/social_test.dart';
 import 'package:flutter_restaurant/view/screens/cart/cart_screen.dart';
 import 'package:flutter_restaurant/view/screens/dashboard/explorer.dart';
 import 'package:flutter_restaurant/view/screens/dashboard/order_tab.dart';
@@ -88,13 +91,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 // ignore: deprecated_member_use
+                                ///<==== Facebook click button =====>
                                 FlatButton.icon(
                                   onPressed: () {
                                     // print("Button clicked!");
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                AuthSignupEmail()));
+                                    // Navigator.of(context).pushReplacement(
+                                    //     MaterialPageRoute(
+                                    //         builder: (BuildContext context) =>
+                                    //             AuthSignupEmail()));
+
+                                    AuthClass()
+                                        .signInWithFacebook()
+                                        .then((UserCredential value) {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SocialHome()),
+                                          (route) => false);
+                                    });
                                   },
                                   label: Text(
                                     "Continue with Facebook",
@@ -121,12 +136,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ),
                                 ),
+                                ///<==== Facebook click END =====>
                                 SizedBox(
                                   height: 10,
                                 ),
+                                // ignore: deprecated_member_use
+                                ///<==== Google click button =====>
                                 FlatButton.icon(
                                   onPressed: () {
-                                    print("Button clicked!");
+                                    // print("Button clicked!");
+                                    AuthClass()
+                                        .signWithGoogle()
+                                        .then((UserCredential value) {
+                                      final displayName =
+                                          value.user.displayName;
+
+                                      print(displayName);
+
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SocialHome()),
+                                          (route) => false);
+                                    });
                                   },
                                   label: Text(
                                     "Continue with Google",
@@ -159,6 +192,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ),
                                 ),
+                                ///<==== Google click END =====>
                                 SizedBox(
                                   height: 10,
                                 ),

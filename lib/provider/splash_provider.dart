@@ -16,6 +16,8 @@ class SplashProvider extends ChangeNotifier {
   BaseUrls get baseUrls => _baseUrls;
   DateTime get currentTime => _currentTime;
 
+// Fetching initial configuration from the backend
+//--------------------------------------------------
   Future<bool> initConfig(GlobalKey<ScaffoldMessengerState> globalKey) async {
     ApiResponse apiResponse = await splashRepo.getConfig();
     bool isSuccess;

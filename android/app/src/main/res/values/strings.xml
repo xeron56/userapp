@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">flutterFcm</string>
+    <string name="facebook_app_id">524881032268177</string>
+    <string name="fb_login_protocol_scheme">c0087934e1ee77a7a155faf1ef2e3db2</string>
+
+</resources>
