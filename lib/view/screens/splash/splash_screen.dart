@@ -72,7 +72,8 @@ class _SplashScreenState extends State<SplashScreen> {
             await Provider.of<WishListProvider>(context, listen: false).initWishList(context);
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen()));
           } else {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen()));
+            bool logedin = false;
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen(logstatus:logedin)));
           }
         });
       }

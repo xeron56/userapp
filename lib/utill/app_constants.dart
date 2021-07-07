@@ -24,6 +24,7 @@ class AppConstants {
   static const String RESET_PASSWORD_URI = '/api/v1/auth/reset-password';
   static const String VERIFY_PHONE_URI = '/api/v1/auth/verify-phone';
   static const String CHECK_EMAIL_URI = '/api/v1/auth/check-email';
+  static const String CHECK_PHONE_URI = '/api/v1/auth/check-phone';
   static const String VERIFY_EMAIL_URI = '/api/v1/auth/verify-email';
   static const String REGISTER_URI = '/api/v1/auth/register';
   static const String LOGIN_URI = '/api/v1/auth/login';

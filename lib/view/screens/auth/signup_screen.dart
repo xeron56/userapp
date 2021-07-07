@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_restaurant/helper/email_checker.dart';
+import 'package:flutter_restaurant/helper/phone_check.dart';
 import 'package:flutter_restaurant/localization/language_constrants.dart';
 import 'package:flutter_restaurant/provider/auth_provider.dart';
 import 'package:flutter_restaurant/utill/color_resources.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_restaurant/view/base/custom_button.dart';
 import 'package:flutter_restaurant/view/base/custom_snackbar.dart';
 import 'package:flutter_restaurant/view/base/custom_text_field.dart';
 import 'package:flutter_restaurant/view/screens/auth/create_account_screen.dart';
+import 'package:flutter_restaurant/view/screens/auth/fire_otp.dart';
 import 'package:flutter_restaurant/view/screens/auth/login_screen.dart';
 import 'package:flutter_restaurant/view/screens/forgot_password/verification_screen.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +81,7 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
-               SizedBox(height: 35),
+              SizedBox(height: 35),
               CustomTextField(
                 hintText: getTranslated('user_check', context),
                 isShowBorder: true,
@@ -115,16 +117,51 @@ class SignUpScreen extends StatelessWidget {
                   ? CustomButton(
                       btnTxt: getTranslated('continue', context),
                       onTap: () {
-                        String _email = _emailController.text.trim();
-                        if (_email.isEmpty) {
+                        String _data = _emailController.text.trim();
+
+                        String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                        RegExp regExp = new RegExp(patttern);
+
+                        if (_data.length == 0) {
                           showCustomSnackBar(
-                              getTranslated('enter_email_address', context),
+                              getTranslated('enter_email_r_phone', context),
                               context);
-                        } else if (EmailChecker.isNotValid(_email)) {
+                        } else if (!regExp.hasMatch(_data) &&
+                            EmailChecker.isNotValid(_data)) {
                           showCustomSnackBar(
-                              getTranslated('enter_valid_email', context),
+                              getTranslated(
+                                  'enter_valid_email_r_phone', context),
                               context);
-                        } else {
+                        }
+
+                        if (regExp.hasMatch(_data)) {
+                          String _phone = _data;
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => PhoneAuth()));
+
+                          //   authProvider.checkPhone(_phone).then((value) async {
+                          //   //if email not exist than >signup-account creation
+                          //   if (value.isSuccess) {
+                          //     authProvider.updatePhone(_phone);
+                          //     if (value.message == 'active') {
+                          //       Navigator.of(context).push(MaterialPageRoute(
+                          //           builder: (_) => VerificationScreen(
+                          //               emailAddress: _phone,
+                          //               fromSignUp: true)));
+                          //     } else {
+                          //       Navigator.of(context).push(MaterialPageRoute(
+                          //           builder: (_) => CreateAccountScreen()));
+                          //     }
+                          //   } else {
+                          //     Navigator.of(context).push(MaterialPageRoute(
+                          //         builder: (_) => LoginScreen()));
+                          //   }
+                          // });
+
+                        }
+
+                        if (!EmailChecker.isNotValid(_data)) {
+                          String _email = _data;
                           authProvider.checkEmail(_email).then((value) async {
                             //if email not exist than >signup-account creation
                             if (value.isSuccess) {
@@ -138,11 +175,9 @@ class SignUpScreen extends StatelessWidget {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (_) => CreateAccountScreen()));
                               }
-                            }else{
+                            } else {
                               Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => LoginScreen()));
-
-
+                                  builder: (_) => LoginScreen()));
                             }
                           });
                         }

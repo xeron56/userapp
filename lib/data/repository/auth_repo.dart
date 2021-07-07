@@ -106,7 +106,7 @@ class AuthRepo {
     }
   }
 
-  // for verify phone number
+  // email exist or not check
   Future<ApiResponse> checkEmail(String email) async {
     try {
       Response response = await dioClient.post(AppConstants.CHECK_EMAIL_URI, data: {"email": email});
@@ -115,6 +115,16 @@ class AuthRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+Future<ApiResponse> checkPhone(String phone) async {
+    try {
+      Response response = await dioClient.post(AppConstants.CHECK_PHONE_URI, data: {"phone": phone});
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
 
   Future<ApiResponse> verifyEmail(String email, String token) async {
     try {
@@ -145,6 +155,7 @@ class AuthRepo {
     return sharedPreferences.containsKey(AppConstants.TOKEN);
   }
 
+// by cleaning token and other data user is fully loged out
   Future<bool> clearSharedData() async {
     await FirebaseMessaging.instance.unsubscribeFromTopic(AppConstants.TOPIC);
     await sharedPreferences.remove(AppConstants.TOKEN);

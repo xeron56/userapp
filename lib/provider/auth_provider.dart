@@ -65,7 +65,7 @@ class AuthProvider with ChangeNotifier {
     ResponseModel responseModel;
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       Map map = apiResponse.response.data;
-      String token = map["token"];
+      String token = map["token"]; //will need to replace with "access_token"
       authRepo.saveUserToken(token);
       await authRepo.updateToken();
       responseModel = ResponseModel(true, 'successful');
@@ -185,6 +185,14 @@ class AuthProvider with ChangeNotifier {
 
   String get verificationMessage => _verificationMsg;
   String _email = '';
+ 
+  String _phone ='';
+  String get phone => _phone;
+  
+  updatePhone(String phone)
+  {
+    _phone = phone;
+  }
 
   String get email => _email;
 
@@ -197,11 +205,43 @@ class AuthProvider with ChangeNotifier {
     _verificationMsg = '';
   }
 
+//with check if email exist or not
   Future<ResponseModel> checkEmail(String email) async {
     _isPhoneNumberVerificationButtonLoading = true;
     _verificationMsg = '';
     notifyListeners();
+  //sending api request (FLUTTER repo folder)
     ApiResponse apiResponse = await authRepo.checkEmail(email);
+
+    _isPhoneNumberVerificationButtonLoading = false;
+    notifyListeners();
+    
+    ResponseModel responseModel;
+    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      responseModel = ResponseModel(true, apiResponse.response.data["token"]);
+    } else {
+      String errorMessage;
+      if (apiResponse.error is String) {
+        print(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        print(errorResponse.errors[0].message);
+        errorMessage = errorResponse.errors[0].message;
+      }
+      responseModel = ResponseModel(false, errorMessage);
+      _verificationMsg = errorMessage;
+    }
+    notifyListeners();
+    return responseModel;
+  }
+
+
+Future<ResponseModel> checkPhone(String phone) async {
+    _isPhoneNumberVerificationButtonLoading = true;
+    _verificationMsg = '';
+    notifyListeners();
+    ApiResponse apiResponse = await authRepo.checkPhone(phone);
     _isPhoneNumberVerificationButtonLoading = false;
     notifyListeners();
     ResponseModel responseModel;
@@ -223,6 +263,9 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
     return responseModel;
   }
+
+
+
 
   Future<ResponseModel> verifyEmail(String email) async {
     _isPhoneNumberVerificationButtonLoading = true;
