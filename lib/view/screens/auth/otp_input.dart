@@ -13,21 +13,18 @@ import 'package:flutter_restaurant/view/base/custom_text_field.dart';
 import 'package:flutter_restaurant/view/screens/auth/create_account_screen.dart';
 import 'package:flutter_restaurant/view/screens/auth/fire_otp.dart';
 import 'package:flutter_restaurant/view/screens/auth/login_screen.dart';
-import 'package:flutter_restaurant/view/screens/auth/otp_input.dart';
-import 'package:flutter_restaurant/view/screens/auth/otp_login.dart';
-import 'package:flutter_restaurant/view/screens/auth/otp_signup.dart';
 import 'package:flutter_restaurant/view/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter_restaurant/view/screens/forgot_password/verification_screen.dart';
 import 'package:provider/provider.dart';
 
-class SignUpScreen extends StatefulWidget {
-  SignUpScreen({Key key}) : super(key: key);
+class OtpInput extends StatefulWidget {
+  OtpInput({Key key}) : super(key: key);
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _OtpInputState createState() => _OtpInputState();
 }
 
-// class _SignUpScreenState extends State<SignUpScreen> {
+// class _OtpInputState extends State<OtpInput> {
 //   @override
 //   Widget build(BuildContext context) {
 //     return Container(
@@ -36,13 +33,14 @@ class SignUpScreen extends StatefulWidget {
 //   }
 // }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _OtpInputState extends State<OtpInput> {
   String phoneNumber;
   String verificationCode;
 
   // TextEditingController otpController; // have otp
-  // TextEditingController phoneController;
-  TextEditingController _emailController; //have phone number
+  // TextEditingController phoneController; //have phone number
+
+  TextEditingController _otpController;
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String verificationId;
@@ -51,13 +49,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void initState() {
     // otpController = TextEditingController();
     // phoneController = TextEditingController();
-    _emailController = TextEditingController();
+    _otpController = TextEditingController();
+
     super.initState();
   }
 
-//otp send class----------------------
   Future<void> verifyPhone(phoneNo) async {
-    //processing otp code to send -class
     final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId) {
       verificationId = verId;
     };
@@ -72,19 +69,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
           User user = value.user;
           userAuthorized();
         } else {
-          String message = 'user not authorized';
-          showCustomSnackBar(message, context);
+          debugPrint('user not authorized');
         }
       }).catchError((error) {
         debugPrint('error : $error');
-        showCustomSnackBar(error, context);
       });
     };
 
     final PhoneVerificationFailed veriFailed =
         (FirebaseAuthException exception) {
       print('${exception.message}');
-      showCustomSnackBar(exception.message, context);
     };
 //AuthException
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -95,9 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         verificationCompleted: verifiedSuccess,
         verificationFailed: veriFailed);
   }
-//---------------------------------------------
 
-//otp varification class-----
   void verifyOTP(String smsCode) async {
     var _authCredential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
@@ -122,7 +114,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       ///go To Next Page
     }).catchError((error) {
-      Navigator.pop(context);
+      Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => DashboardScreen()));
+      // Navigator.pop(context);
     });
   }
 
@@ -169,7 +163,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Hi, there!",
+                      "AlMost Done!",
                       style: TextStyle(
                         color: Color(
                           0xff646464,
@@ -182,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "Will check, if you have any account.",
+                      "We have sent you an otp",
                       style: TextStyle(
                         color: Color(
                           0xff646464,
@@ -198,11 +192,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               SizedBox(height: 35),
               CustomTextField(
-                hintText: getTranslated('user_check', context),
+                hintText: getTranslated('otp', context),
                 isShowBorder: true,
                 inputAction: TextInputAction.done,
                 inputType: TextInputType.emailAddress,
-                controller: _emailController,
+                controller: _otpController,
               ),
               SizedBox(height: 6),
               Row(
@@ -226,127 +220,84 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   )
                 ],
               ),
-              // for continue button
+              // for sign button
               SizedBox(height: 130),
-              //Go to authprovider and back with value/ not true so will show button
               !authProvider.isPhoneNumberVerificationButtonLoading
                   ? CustomButton(
-                      btnTxt: getTranslated('continue', context),
+                      btnTxt: getTranslated('signup', context),
                       onTap: () {
-                        String _data = _emailController.text.trim();
-
-                        String patttern =
-                            r'(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$';
-                        RegExp regExp = new RegExp(patttern);
-
+                        String _data = _otpController.text.trim();
                         if (_data.length == 0) {
                           showCustomSnackBar(
-                              getTranslated('enter_email_r_phone', context),
-                              context);
-                        } else if (!regExp.hasMatch(_data) &&
-                            EmailChecker.isNotValid(_data)) {
-                          showCustomSnackBar(
-                              getTranslated(
-                                  'enter_valid_email_r_phone', context),
+                              getTranslated('otp_valid_input', context),
                               context);
                         }
+                        verifyOTP(_data);
 
-                      //  Varify is input is phone or not
-                        if (regExp.hasMatch(_data)) {
-                          String _phone = _data;
+                        // String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                        // RegExp regExp = new RegExp(patttern);
 
-                          //as the input is number so sending otp to that
-                          verifyPhone(_data);
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_) => OtpInput()));
+                        // if (_data.length == 0) {
+                        //   showCustomSnackBar(
+                        //       getTranslated('otp_valid_input', context),
+                        //       context);
+                        // } else if (!regExp.hasMatch(_data) &&
+                        //     EmailChecker.isNotValid(_data)) {
+                        //   showCustomSnackBar(
+                        //       getTranslated(
+                        //           'enter_valid_email_r_phone', context),
+                        //       context);
+                        // }
 
-                          authProvider.checkPhone(_phone).then((value) async {
-                            //if email not exist than >signup-account creation
-                            if (value.isSuccess) {
-                              authProvider.updatePhone(_phone);
-                              if (value.message == 'active') {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => VerificationScreen(
-                                        emailAddress: _phone,
-                                        fromSignUp: true)));
-                              } else {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => OtpSignup()));
-                              }
-                            } else {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => OtpLoginScreen()));
-                            }
-                          });
-                        }
-//======================== phone ===============================
                         // if (regExp.hasMatch(_data)) {
-                        //   String _email = _data;
-                        //   authProvider.checkEmail(_email).then((value) async {
-                        //     // value.isSuccess = true means account exist
+                        //   String _phone = _data;
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (_) => PhoneAuth()));
+
+                        //     authProvider.checkPhone(_phone).then((value) async {
+                        //     //if email not exist than >signup-account creation
                         //     if (value.isSuccess) {
-                        //       authProvider.updateEmail(_email);
-                              
+                        //       authProvider.updatePhone(_phone);
                         //       if (value.message == 'active') {
                         //         Navigator.of(context).push(MaterialPageRoute(
                         //             builder: (_) => VerificationScreen(
-                        //                 emailAddress: _email,
+                        //                 emailAddress: _phone,
                         //                 fromSignUp: true)));
                         //       } else {
                         //         Navigator.of(context).push(MaterialPageRoute(
-                        //             builder: (_) => OtpSignup(phone_num: _email)));
+                        //             builder: (_) => CreateAccountScreen()));
                         //       }
                         //     } else {
                         //       Navigator.of(context).push(MaterialPageRoute(
-                        //           builder: (_) => OtpLoginScreen()));
+                        //           builder: (_) => LoginScreen()));
                         //     }
                         //   });
+
                         // }
-//===========================================================================
-                        //if email is valid so enter the if
+
                         // if (!EmailChecker.isNotValid(_data)) {
                         //   String _email = _data;
                         //   authProvider.checkEmail(_email).then((value) async {
                         //     // success=true means email exist
                         //     if (value.isSuccess) {
-                        //       authProvider.updateEmail(_email);
-                        //       if (value.message == 'active') {
-                        //         Navigator.of(context).push(MaterialPageRoute(
-                        //             builder: (_) => VerificationScreen(
-                        //                 emailAddress: _email,
-                        //                 fromSignUp: true)));
+                        //       // authProvider.updateEmail(_email);
+                        //       // if (value.message == 'active') {
+                        //       //   Navigator.of(context).push(MaterialPageRoute(
+                        //       //       builder: (_) => VerificationScreen(
+                        //       //           emailAddress: _email,
+                        //       //           fromSignUp: true)));
                         //       Navigator.of(context).push(MaterialPageRoute(
                         //           builder: (_) => LoginScreen()));
-                        //     } else {
-                        //       Navigator.of(context).push(MaterialPageRoute(
-                        //           builder: (_) => CreateAccountScreen()));
+                        //       } else {
+                        //         Navigator.of(context).push(MaterialPageRoute(
+                        //             builder: (_) => CreateAccountScreen()));
+                        //       }
                         //     }
-                        //   }});
-
+                        //   );
                         // }
-                        if (!EmailChecker.isNotValid(_data)) {
-                          String _email = _data;
-                          authProvider.checkEmail(_email).then((value) async {
-                            //if email not exist than >signup-account creation
-                            if (value.isSuccess) {
-                              authProvider.updateEmail(_email);
-                              if (value.message == 'active') {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => VerificationScreen(
-                                        emailAddress: _email,
-                                        fromSignUp: true)));
-                              } else {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => CreateAccountScreen()));
-                              }
-                            } else {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => LoginScreen()));
-                            }
-                          });
-                        }
                       },
                     )
+                  //if
                   : Center(
                       child: CircularProgressIndicator(
                       valueColor: new AlwaysStoppedAnimation<Color>(

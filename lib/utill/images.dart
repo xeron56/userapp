@@ -42,7 +42,10 @@ class Images {
   static const String explore_menu = 'assets/icon/explore_menu.png';
   static const String bag_menu = 'assets/icon/bag_menu.png'; 
   static const String order_menu ='assets/icon/order_menu.png';
-   static const String profile_menu ='assets/icon/profile_menu.png';
+  static const String profile_menu ='assets/icon/profile_menu.png';
+  static const String food_home ='assets/icon/food_home.png';
+
+
 
   
   static const String marker = 'assets/icon/marker.png';

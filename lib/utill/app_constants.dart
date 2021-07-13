@@ -8,6 +8,9 @@ class AppConstants {
 
   //static const String BASE_URL = 'https://demo.6amtech.com/restaurant';
   static const String BASE_URL = 'http://10.24.239.125';
+  static const String BASE_URL_N ='http://staging.foodstick.xyz';
+  static const String EMAIL_CHECK_N= '/api/user-email-check';
+  static const String PHONE_CHECK_N= '/api/user-phone-check';
 
   static const String CATEGORY_URI = '/api/v1/categories';
   static const String BANNER_URI = '/api/v1/banners';

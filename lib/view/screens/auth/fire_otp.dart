@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_restaurant/view/screens/dashboard/dashboard_screen.dart';
 
 class PhoneAuth extends StatefulWidget {
   @override
@@ -10,8 +11,8 @@ class _PhoneAuthState extends State<PhoneAuth> {
   String phoneNumber;
   String verificationCode;
 
-  TextEditingController otpController;
-  TextEditingController phoneController;
+  TextEditingController otpController; // have otp
+  TextEditingController phoneController; //have phone number 
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String verificationId;
@@ -88,6 +89,8 @@ class _PhoneAuthState extends State<PhoneAuth> {
 
   userAuthorized() {
     print('can go to next page');
+    Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => DashboardScreen()));
   }
 
   @override
@@ -117,6 +120,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                 children: <Widget>[
                   RaisedButton(
                     onPressed: () {
+                      //Send OTP
                       verifyPhone(phoneController.text.trim());
                     },
                     child: Center(
@@ -128,6 +132,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                   ),
                   RaisedButton(
                     onPressed: () {
+                      //Verify OTP
                       verifyOTP(otpController.text.trim());
                     },
                     child: Center(

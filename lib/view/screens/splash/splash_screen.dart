@@ -49,8 +49,8 @@ class _SplashScreenState extends State<SplashScreen> {
       _firstTime = false;
     });
 
-    Provider.of<SplashProvider>(context, listen: false).initSharedData();
-    Provider.of<CartProvider>(context, listen: false).getCartData();
+    // Provider.of<SplashProvider>(context, listen: false).initSharedData();
+    // Provider.of<CartProvider>(context, listen: false).getCartData();
     _route();
 
   }
@@ -79,6 +79,24 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
   }
+ 
+  //  void _route()
+  //  {
+        
+  //       Timer(Duration(seconds: 1), () async {
+  //         //insert first if user is logedin
+  //         if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+  //           Provider.of<AuthProvider>(context, listen: false).updateToken();
+  //          // await Provider.of<WishListProvider>(context, listen: false).initWishList(context);
+  //           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen()));
+  //         } else {
+  //           bool logedin = false;
+  //           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashboardScreen(logstatus:logedin)));
+  //         }
+  //       });
+  //  }
+
+
 
   @override
   Widget build(BuildContext context) {

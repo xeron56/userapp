@@ -51,11 +51,15 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
     return responseModel;
   }
-
+ 
   // for login section
   String _loginErrorMessage = '';
 
   String get loginErrorMessage => _loginErrorMessage;
+
+///=========================================================
+///  Login provider handeler
+/// ========================================================
 
   Future<ResponseModel> login(String email, String password) async {
     _isLoading = true;
@@ -84,6 +88,16 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
     return responseModel;
   }
+
+
+
+
+
+
+
+
+
+  
 
   // for forgot password
   bool _isForgotPasswordLoading = false;
@@ -204,8 +218,100 @@ class AuthProvider with ChangeNotifier {
   void clearVerificationMessage() {
     _verificationMsg = '';
   }
-
+///======================================================================
 //with check if email exist or not
+///======================================================================
+  Future<ResponseModel> checkEmail_N(String email) async {
+    _isPhoneNumberVerificationButtonLoading = true;
+    _verificationMsg = '';
+    notifyListeners();
+  //sending api request (FLUTTER repo folder)
+    ApiResponse apiResponse = await authRepo.checkEmail(email);
+
+    _isPhoneNumberVerificationButtonLoading = false;
+    notifyListeners();
+    
+    //initialize response model
+    ResponseModel responseModel;
+    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      //sending true if response is 200 also capture dataobject which has"token"
+      if(apiResponse.response.data["email_exist"] == true)
+      {
+        responseModel = ResponseModel(true, apiResponse.response.data["email_exist"]);
+      }
+      if(apiResponse.response.data["email_exist"] == false)
+      {
+        responseModel = ResponseModel(false, apiResponse.response.data["email_exist"]);
+
+      }
+      
+    } 
+    // else {
+    //   String errorMessage;
+    //   if (apiResponse.error is String) {
+    //     print(apiResponse.error.toString());
+    //     errorMessage = apiResponse.error.toString();
+    //   } else {
+    //     ErrorResponse errorResponse = apiResponse.error;
+    //     print(errorResponse.errors[0].message);
+    //     errorMessage = errorResponse.errors[0].message;
+    //   }
+    //   responseModel = ResponseModel(false, errorMessage);
+    //   _verificationMsg = errorMessage;
+    // }
+    notifyListeners();
+    // now this send precessed response 
+    return responseModel;
+  }
+//---------------------------------------------------------------------
+
+
+///======================================================================
+//with check if phone exist or not
+///======================================================================
+  Future<ResponseModel> checkPhone(String phone) async {
+    _isPhoneNumberVerificationButtonLoading = true;
+    _verificationMsg = '';
+    notifyListeners();
+  //sending api request (FLUTTER repo folder)
+    ApiResponse apiResponse = await authRepo.checkPhone(phone);
+
+    _isPhoneNumberVerificationButtonLoading = false;
+    notifyListeners();
+    
+    //initialize response model
+    ResponseModel responseModel;
+    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      //sending true if response is 200 also capture dataobject which has"token"
+      if(apiResponse.response.data["phone_exist"] == true)
+      {
+        responseModel = ResponseModel(true, apiResponse.response.data["phone_exist"]);
+      }
+      if(apiResponse.response.data["phone_exist"] == false)
+      {
+        responseModel = ResponseModel(false, apiResponse.response.data["phone_exist"]);
+
+      }
+      
+    } 
+    // else {
+    //   String errorMessage;
+    //   if (apiResponse.error is String) {
+    //     print(apiResponse.error.toString());
+    //     errorMessage = apiResponse.error.toString();
+    //   } else {
+    //     ErrorResponse errorResponse = apiResponse.error;
+    //     print(errorResponse.errors[0].message);
+    //     errorMessage = errorResponse.errors[0].message;
+    //   }
+    //   responseModel = ResponseModel(false, errorMessage);
+    //   _verificationMsg = errorMessage;
+    // }
+    notifyListeners();
+    // now this send precessed response 
+    return responseModel;
+  }
+
   Future<ResponseModel> checkEmail(String email) async {
     _isPhoneNumberVerificationButtonLoading = true;
     _verificationMsg = '';
@@ -216,8 +322,10 @@ class AuthProvider with ChangeNotifier {
     _isPhoneNumberVerificationButtonLoading = false;
     notifyListeners();
     
+    //initialize response model
     ResponseModel responseModel;
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      //sending true if response is 200 also capture dataobject which has"token"
       responseModel = ResponseModel(true, apiResponse.response.data["token"]);
     } else {
       String errorMessage;
@@ -233,11 +341,13 @@ class AuthProvider with ChangeNotifier {
       _verificationMsg = errorMessage;
     }
     notifyListeners();
+    // now this send precessed response 
     return responseModel;
   }
 
 
-Future<ResponseModel> checkPhone(String phone) async {
+
+Future<ResponseModel> checkPhone_N(String phone) async {
     _isPhoneNumberVerificationButtonLoading = true;
     _verificationMsg = '';
     notifyListeners();

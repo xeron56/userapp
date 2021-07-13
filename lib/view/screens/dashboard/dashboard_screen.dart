@@ -343,6 +343,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
       child: Scaffold(
         key: _scaffoldKey,
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: SizedBox(
+            height: 70,
+            width: 70,
+            child: FloatingActionButton(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              onPressed: () {},
+              child: Container(
+                height: 70,
+                width: 70,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 4),
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: const Alignment(0.7, -0.5),
+                    end: const Alignment(0.6, 0.5),
+                    colors: [
+                      Color(0xffff4200),
+                      Color(0xffff4200),
+                    ],
+                  ),
+                ),
+                // child: Icon(Icons.home, size: 30),
+                child:  Image.asset(Images.food_home,height: 10),
+              ),
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        //bottom navigation bar
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: ColorResources.COLOR_GREY,
@@ -350,41 +382,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
           currentIndex: _pageIndex,
           type: BottomNavigationBarType.fixed,
           items: [
-            _barItem(Icons.home, getTranslated('home', context), 0),
-            _barItem(Icons.shopping_cart, getTranslated('cart', context), 1),
-            _barItem(Icons.shopping_bag, getTranslated('order', context), 2),
-            _barItem(Icons.favorite, getTranslated('favourite', context), 3),
-            _barItem(Icons.menu, getTranslated('menu', context), 4)
+            _barItem(Icons.flag, getTranslated('explore', context), 0),
+            _barItem(Icons.shopping_bag, getTranslated('orders', context), 1),
+            _barItem(Icons.home, getTranslated('home', context), 2),
+            _barItem(Icons.shopping_cart, getTranslated('cart', context), 3),
+            _barItem(Icons.menu, getTranslated('profile', context), 4)
+
+            // _barItem(Icons.favorite, getTranslated('favourite', context), 3),
           ],
           onTap: (int index) {
             _setPage(index);
           },
         ),
-        appBar: Provider.of<SplashProvider>(context, listen: false)
-                .isRestaurantClosed()
-            ? AppBar(
-                toolbarHeight: 40,
-                backgroundColor: Theme.of(context).primaryColor,
-                elevation: 1,
-                title:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Dimensions.PADDING_SIZE_SMALL),
-                      child: Image.asset(Images.closed, width: 25, height: 25)),
-                  Text(
-                    '${getTranslated('restaurant_is_close_now', context)} '
-                    '${DateConverter.convertTimeToTime('${Provider.of<SplashProvider>(context, listen: false).configModel.restaurantOpenTime}:00')}',
-                    style: rubikRegular.copyWith(
-                        fontSize: 12, color: Colors.black),
-                  ),
-                ]),
-              )
-            : null,
+
+        ///Showing id restauren ids close or not at this time
+        // appBar: Provider.of<SplashProvider>(context, listen: false)
+        //         .isRestaurantClosed()
+        //     ? AppBar(
+        //         toolbarHeight: 40,
+        //         backgroundColor: Theme.of(context).primaryColor,
+        //         elevation: 1,
+        //         title:
+        //             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        //           Padding(
+        //               padding: EdgeInsets.symmetric(
+        //                   horizontal: Dimensions.PADDING_SIZE_SMALL),
+        //               child: Image.asset(Images.closed, width: 25, height: 25)),
+        //           Text(
+        //             '${getTranslated('restaurant_is_close_now', context)} '
+        //             '${DateConverter.convertTimeToTime('${Provider.of<SplashProvider>(context, listen: false).configModel.restaurantOpenTime}:00')}',
+        //             style: rubikRegular.copyWith(
+        //                 fontSize: 12, color: Colors.black),
+        //           ),
+        //         ]),
+        //       )
+        //     : null,
         body: PageView.builder(
           controller: _pageController,
           itemCount: _screens.length,
           physics: NeverScrollableScrollPhysics(),
+          //building view of each tab
           itemBuilder: (context, index) {
             return _screens[index];
           },
@@ -393,6 +430,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+//bottom navigation item
   BottomNavigationBarItem _barItem(IconData icon, String label, int index) {
     return BottomNavigationBarItem(
       icon: Stack(
@@ -403,7 +441,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ? ColorResources.COLOR_PRIMARY
                   : ColorResources.COLOR_GREY,
               size: 25),
-          index == 1
+          //if index is 1 means if it cart than call cart provider for attached item number
+          index == 3
               ? Positioned(
                   top: -7,
                   right: -7,
@@ -429,6 +468,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+//setting which page to go after press
   void _setPage(int pageIndex) {
     setState(() {
       _pageController.jumpToPage(pageIndex);
